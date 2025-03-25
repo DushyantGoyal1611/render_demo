@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Evaluation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Candidate Evaluation Form</h2>
+        <form action="/predict" method="POST">
+            <label>Age:</label>
+            <input type="number" name="age" required>
+            
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            
+            <label>Education:</label>
+            <input type="text" name="education" required>
+            
+            <label>Marital Status:</label>
+            <select name="marital_status" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Unmarried">Unmarried</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+            </select>
+            
+            <label>Mode of Interview:</label>
+            <select name="interview_mode" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Laptop">Laptop</option>
+            </select>
+            
+            <label>Fluency in English based on introduction:</label>
+            <input type="text" name="fluency" required>
+            
+            <label>Does the candidate has mother tongue influence while speaking english:</label>
+            <select name="mti" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label>Acquaintance and Referral:</label>
+            <select name="aar" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            
+            <label>Candidate Status:</label>
+            <select name="candidate_status" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Lateral">Lateral (2021 and before, <6 months exp)</option>
+                <option value="Fresher">Fresher (2022 grad)</option>
+                <option value="Non-client">Experienced in non-client-facing (>=6 months)</option>
+                <option value="Client">Experienced in client-facing (>=6 months)</option>
+            </select>
+
+            <label>Last Fixed CTC (lakhs):</label>
+            <select name="ctc" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Fresher">Fresher</option>
+                <option value="0-1.99">0-1.99</option>
+                <option value="2-2.99">2-2.99</option>
+                <option value="3-3.99">3-3.99</option>
+                <option value="4-4.99">4-4.99</option>
+                <option value="5-5.99">5-5.99</option>
+            </select>
+            
+            <label>Currently Employed:</label>
+            <select name="employed" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label>Experienced candidate - (Experience in months):</label>
+            <select name="ec" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Fresher(<6 months)">Fresher(<6 months)</option>
+                <option value="No">No</option>
+            </select>
+
+            <label>What was the type of Role?:</label>
+            <select name="role" required>
+                <option value="" disabled selected>Select</option>
+                <option value="Fresher">Fresher</option>
+                <option value="Individual Contributor">Individual Contributor</option>
+                <option value="Team Handling">Team Handling</option>
+            </select>
+
+            <label>How many slides candidate have submitted in PPT?:</label>
+            <select name="role" required>
+                <option value="" disabled selected>Select</option>
+                <option value="1 slide">1 slide</option>
+                <option value="5 - 6 slides">5 - 6 slides</option>
+                <option value="More than 6 slides">More than 6 slides</option>
+            </select>
+
+            <label>Role acceptance:</label>
+            <select name="role" required>
+                <option value="" disabled selected>Select</option>
+                <option value="No">No</option>
+                <option value="Yes : Think and says yes.(Shows some hesitation)">Yes : Think and says yes.(Shows some hesitation)</option>
+                <option value="Emphatic Yes">Emphatic Yes</option>
+            </select>
+
+            <label>Candidate is willing to relocate:</label>
+            <select name="role" required>
+                <option value="" disabled selected>Select</option>
+                <option value="No - Want Specific Centre Location Only">No - Want Specific Centre Location Only</option>
+                <option value="Yes - Anywhere in PAN India">Yes - Anywhere in PAN India</option>
+            </select>
+            
+            <label>Confidence based on Introduction (English):</label>
+            <input type="number" name="confidence1" min="1" max="5" required>
+
+            <label>Confidence based on the topic given:</label>
+            <input type="number" name="confidence2" min="1" max="5" required>
+
+            <label>Confidence Based on the PPT Question:</label>
+            <input type="number" name="confidence3" min="1" max="5" required>
+
+            <label>Confidence based on the sales scenario:</label>
+            <input type="number" name="confidence4" min="1" max="5" required>
+            
+            <label>Structured Thinking (In regional only):</label>
+            <input type="number" name="structured_thinking1" min="1" max="5" required>
+
+            <label>Structured Thinking( Call pitch):</label>
+            <input type="number" name="structured_thinking2" min="1" max="5" required>
+            
+            <label>Regional fluency based on the topic given:</label>
+            <input type="number" name="regional_fluency1" min="1" max="5" required>
+
+            <label>Regional fluency Based on the PPT Question:</label>
+            <input type="number" name="regional_fluency2" min="1" max="5" required>
+
+            <label>Regional fluency based on the sales scenario:</label>
+            <input type="number" name="regional_fluency3" min="1" max="5" required>
+
+            <label>Confidence Score:</label>
+            <input type="number" name="confidence_score" min="1" max="5" required>
+
+            <label>Structured Thinking Score:</label>
+            <input type="number" name="structured_thinking_score" min="1" max="5" required>
+
+            <label>Regional Fluency Score:</label>
+            <input type="number" name="regional_fluency_score" min="1" max="5" required>
+            
+            <label>Total Score:</label>
+            <input type="number" name="total_score" min="1" max="100" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
