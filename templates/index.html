@@ -48,6 +48,13 @@
         button:hover {
             background-color: #218838;
         }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #dff0d8;
+            border-left: 5px solid #4CAF50;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -102,10 +109,10 @@
             <label>Candidate Status:</label>
             <select name="Candidate Status" required>
                 <option value="" disabled selected>Select</option>
-                <option value="Lateral">Lateral (2021 and before, <6 months exp)</option>
-                <option value="Fresher">Fresher (2022 grad)</option>
-                <option value="Non-client">Experienced in non-client-facing (>=6 months)</option>
-                <option value="Client">Experienced in client-facing (>=6 months)</option>
+                <option value="Experienced in non client facing(equal to or more than 6 months)">Experienced in non client facing(equal to or more than 6 months)</option>
+                <option value="Lateral(2021 and before with (less than 6 months) experience)">Lateral(2021 and before with (less than 6 months) experience)</option>
+                <option value="Fresher(only 2022 grad)">Fresher(only 2022 grad)</option>     
+                <option value="Experienced in client facing(equal to or more than 6 months)">Experienced in client facing(equal to or more than 6 months)</option>
             </select>
 
             <label>Last Fixed CTC (lakhs):</label>
@@ -129,8 +136,10 @@
             <label>Experienced candidate - (Experience in months):</label>
             <select name="Experienced candidate - (Experience in months)" required>
                 <option value="" disabled selected>Select</option>
+                <option value="6-11.99 Months">6-11.99 Months</option>
                 <option value="Fresher(<6 months)">Fresher(<6 months)</option>
-                <option value="No">No</option>
+                <option value="12-17.99 Months">12-17.99 Months</option>
+                <option value="48+ Months">48+ Months</option>
             </select>
 
             <label>What was the type of Role?:</label>
@@ -208,6 +217,7 @@
             
             <button type="submit">Submit</button>
         </form>
+        <div id="result"></div>
     </div>
     
     <script>
@@ -225,8 +235,19 @@
                 body: JSON.stringify(jsonData) // Ensure data is JSON
             })
             .then(response => response.json())
-            .then(data => alert("Prediction: " + JSON.stringify(data)))
-            .catch(error => console.error("Error:", error));
+            .then(data => {
+                let resultDiv = document.getElementById("result");
+                resultDiv.innerHTML = `<strong>Prediction Result:</strong> ${JSON.stringify(data, null, 2)}`;
+                resultDiv.style.display = "block";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit";
+            });
         });
     </script>    
 

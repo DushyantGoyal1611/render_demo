@@ -96,8 +96,16 @@ def label_encoder(input_df):
         
     return input_df
 
+def load_pickle(file_path):
+    with open(file_path, 'rb') as f:
+        return pickle.load(f) 
 
 MODEL_PATH = "Candidate_Recommender_model.pth"
+TEST_TENSOR_PATH = "X_test_tensor.pth"
+TEST_INDEX_PATH = "X_test_index.pkl"
+
+X_test_tensor = torch.load(TEST_TENSOR_PATH, map_location=torch.device("cpu"))
+X_test_index = load_pickle(TEST_INDEX_PATH)  
 
 class RecommenderModel(nn.Module):
     def __init__(self, input_size, hidden_units):
@@ -160,44 +168,21 @@ def predict():
         # Convert to PyTorch tensor
         inputs = torch.tensor(processed_input, dtype=torch.float32)
 
-        # Make prediction
         with torch.no_grad():
-            output = model(inputs).tolist()  # Convert output to list
-        
-        return jsonify({"prediction": output})
+            scores = F.cosine_similarity(inputs, X_test_tensor)
+
+        ranking_df = pd.DataFrame({
+            'id' : X_test_index,
+            'score': [round(float(s), 2) for s in scores.numpy()]
+        })    
+
+        ranked_candidates = ranking_df.sort_values(by='score', ascending=False).head(5)
+        recommendations = ranked_candidates.to_dict(orient='records')
+
+        return jsonify({"recommendations": recommendations})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
-    # try:
-    #     # Extracting features
-    #     required_fields = [
-    #         "age", "gender", "education", "marital_status", "interview_mode", "fluency", "mti", "aar", 
-    #         "candidate_status", "ctc", "employed", "ec", "role", "slides", "role_acceptance", "relocate", 
-    #         "confidence1", "confidence2", "confidence3", "confidence4",
-    #         "structured_thinking1", "structured_thinking2",
-    #         "regional_fluency1", "regional_fluency2", "regional_fluency3",
-    #         "confidence_score", "structured_thinking_score", "regional_fluency_score", "total_score"
-    #     ]
-        
-    #     # Placeholder for features
-    #     features = [float(data[field]) for field in required_fields if field in data]
-
-    #     INPUT_SIZE = model.fc1.in_features  # Get input size dynamically
-    #     if len(features) != INPUT_SIZE:
-    #         return jsonify({"error": f"Expected {INPUT_SIZE} features, but got {len(features)}"}), 400
-        
-    # except ValueError:
-    #     return jsonify({"error": "Invalid input format. Ensure all fields are numeric."}), 400
-
-    # # Convert to PyTorch tensor
-    # inputs = torch.tensor([features], dtype=torch.float32) 
-
-    # # Make prediction
-    # with torch.no_grad():
-    #     output = model(inputs).item()
-
-    # return jsonify({"prediction": output})
 
 
 if __name__ == "__main__":
