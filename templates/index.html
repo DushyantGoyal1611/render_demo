@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Candidate Evaluation Form</title>
+    <title>Employer Preference Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,8 +59,9 @@
 </head>
 <body>
     <div class="container">
-        <h2>Candidate Evaluation Form</h2>
+        <h2>Employer Preference Form</h2>
         <form action="/predict" method="POST">
+
             <label>Age:</label>
             <input type="number" name="Age" required>
             
@@ -80,7 +81,7 @@
                 <option value="Unmarried">Unmarried</option>
                 <option value="Married">Married</option>
                 <option value="Divorced">Divorced</option>
-            </select>
+            </select>    
             
             <label>Mode of Interview:</label>
             <select name="Mode of Interview" required>
@@ -88,7 +89,7 @@
                 <option value="Mobile">Mobile</option>
                 <option value="Laptop">Laptop</option>
             </select>
-            
+        
             <label>Fluency in English based on introduction:</label>
             <input type="text" name="Fluency in English based on introduction" required>
             
@@ -174,46 +175,49 @@
             </select>
             
             <label>Confidence based on Introduction (English):</label>
-            <input type="number" name="Confidence based on Introduction (English)" min="1" max="5" required>
+            <input type="number" name="Confidence based on Introduction (English)" id="confidence1" min="1" max="5" required>
 
             <label>Confidence based on the topic given:</label>
-            <input type="number" name="Confidence based on the topic given " min="1" max="5" required>
+            <input type="number" name="Confidence based on the topic given " id="confidence2" min="1" max="5" required>
 
             <label>Confidence Based on the PPT Question:</label>
-            <input type="number" name="Confidence Based on the PPT Question" min="1" max="5" required>
+            <input type="number" name="Confidence Based on the PPT Question" id="confidence3" min="1" max="5" required>
 
             <label>Confidence based on the sales scenario:</label>
-            <input type="number" name="Confidence based on the sales scenario" min="1" max="5" required>
+            <input type="number" name="Confidence based on the sales scenario" id="confidence4" min="1" max="5" required>
             
             <label>Structured Thinking (In regional only):</label>
-            <input type="number" name="Structured Thinking (In regional only)" min="1" max="5" required>
+            <input type="number" name="Structured Thinking (In regional only)" id="structured1" min="1" max="5" required>
 
             <label>Structured Thinking Based on the PPT Question:</label>
-            <input type="number" name="Structured Thinking Based on the PPT Question" min="1" max="5" required>
+            <input type="number" name="Structured Thinking Based on the PPT Question" id="structured2" min="1" max="5" required>
 
             <label>Structured Thinking( Call pitch):</label>
-            <input type="number" name="Structured Thinking( Call pitch)" min="1" max="5" required>
+            <input type="number" name="Structured Thinking( Call pitch)" id="structured3" min="1" max="5" required>
             
             <label>Regional fluency based on the topic given:</label>
-            <input type="number" name="Regional fluency based on the topic given " min="1" max="5" required>
+            <input type="number" name="Regional fluency based on the topic given " id="regional1" min="1" max="5" required>
 
             <label>Regional fluency Based on the PPT Question:</label>
-            <input type="number" name="Regional fluency Based on the PPT Question" min="1" max="5" required>
+            <input type="number" name="Regional fluency Based on the PPT Question" id="regional2" min="1" max="5" required>
 
             <label>Regional fluency based on the sales scenario:</label>
-            <input type="number" name="Regional fluency based on the  sales scenario" min="1" max="5" required>
+            <input type="number" name="Regional fluency based on the  sales scenario" id="regional3" min="1" max="5" required>
 
             <label>Confidence Score:</label>
-            <input type="number" name="Confidence Score" min="1" max="5" required>
+            <input type="number" name="Confidence Score" id="confidence5" min="1" max="5" required>
 
             <label>Structured Thinking Score:</label>
-            <input type="number" name="Structured Thinking Score" min="1" max="5" required>
+            <input type="number" name="Structured Thinking Score" id="structured4" min="1" max="5" required>
 
             <label>Regional Fluency Score:</label>
-            <input type="number" name="Regional Fluency Score" min="1" max="5" required>
-            
+            <input type="number" name="Regional Fluency Score" id="regional4" min="1" max="5" required>
+
+            <!-- <label>Total Score:</label>
+            <input type="number" name="Total Score" min="1" max="100" required> -->
+
             <label>Total Score:</label>
-            <input type="number" name="Total Score" min="1" max="100" required>
+            <input type="number" name="Total Score" id="totalScore" readonly>
             
             <button type="submit">Submit</button>
         </form>
@@ -221,6 +225,40 @@
     </div>
     
     <script>
+        function calculateTotalScore() {
+            let confidence1 = parseInt(document.getElementById("confidence1").value) || 0;
+            let confidence2 = parseInt(document.getElementById("confidence2").value) || 0;
+            let confidence3 = parseInt(document.getElementById("confidence3").value) || 0;
+            let confidence4 = parseInt(document.getElementById("confidence4").value) || 0;
+            let confidence5 = parseInt(document.getElementById("confidence5").value) || 0;
+            let structured1 = parseInt(document.getElementById("structured1").value) || 0;
+            let structured2 = parseInt(document.getElementById("structured2").value) || 0;
+            let structured3 = parseInt(document.getElementById("structured3").value) || 0;
+            let structured4 = parseInt(document.getElementById("structured4").value) || 0;
+            let regional1 = parseInt(document.getElementById("regional1").value) || 0;
+            let regional2 = parseInt(document.getElementById("regional2").value) || 0;
+            let regional3 = parseInt(document.getElementById("regional3").value) || 0;
+            let regional4 = parseInt(document.getElementById("regional4").value) || 0;
+            
+            let total = confidence1 + confidence2 + confidence3 + confidence4 + confidence5 + structured1 + structured2 + structured3 + structured4 + regional1 + regional2 + regional3 + regional4;
+            document.getElementById("totalScore").value = total;
+        }
+
+        document.getElementById("confidence1").addEventListener("input", calculateTotalScore);
+        document.getElementById("confidence2").addEventListener("input", calculateTotalScore);
+        document.getElementById("confidence3").addEventListener("input", calculateTotalScore);
+        document.getElementById("confidence4").addEventListener("input", calculateTotalScore);
+        document.getElementById("confidence5").addEventListener("input", calculateTotalScore);
+        document.getElementById("structured1").addEventListener("input", calculateTotalScore);
+        document.getElementById("structured2").addEventListener("input", calculateTotalScore);
+        document.getElementById("structured3").addEventListener("input", calculateTotalScore);
+        document.getElementById("structured4").addEventListener("input", calculateTotalScore);
+        document.getElementById("regional1").addEventListener("input", calculateTotalScore);
+        document.getElementById("regional2").addEventListener("input", calculateTotalScore);
+        document.getElementById("regional3").addEventListener("input", calculateTotalScore);
+        document.getElementById("regional4").addEventListener("input", calculateTotalScore);
+
+
         document.querySelector("form").addEventListener("submit", function(event) {
             event.preventDefault(); 
     

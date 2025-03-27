@@ -3,10 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, OneHotEncoder, StandardScaler, FunctionTransformer
-from sklearn.model_selection import train_test_split
-from sklearn.decomposition import PCA
+from sklearn.preprocessing import LabelEncoder
 from flask import Flask, request, jsonify, render_template
 
 
