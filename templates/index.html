@@ -4,56 +4,76 @@
     <title>Employer Preference Form</title>
     <style>
         body {
+            background-color: #f8f9fa;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
+            width: 100vw;
+            height: 105vh;
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
         h2 {
             text-align: center;
-            color: #333;
+            color: #343a40;
         }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .form-group {
+            width: 48%; /* Keeps labels full width but reduces input size */
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block; /* Ensures label takes full width */
+        }
+
+        /* .form-group {
+            display: flex;
+            flex-direction: column;
+        } */
+
         label {
-            font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
+            font-weight: 600;
         }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
+        /* .form-control {
+            padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
+        } */
+
+        .form-control {
+            width: 90%; /* Adjusts only the input field width */
+            display: block;
         }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
+
+        .btn-primary {
+            width: 50%;
             padding: 10px;
-            width: 100%;
             font-size: 16px;
-            border-radius: 4px;
+            font-weight: bold;
+            background-color: #007bff;
+            border: none;
+            color: white;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #218838;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            background: #dff0d8;
-            border-left: 5px solid #4CAF50;
-            display: none;
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -61,166 +81,229 @@
     <div class="container">
         <h2>Employer Preference Form</h2>
         <form action="/predict" method="POST">
+            <div class="grid-container">
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="number" class="form-control" name="Age" required>
+                </div>
+                <div class="form-group">   
+                    <label>Gender:</label>
+                    <select class="form-control" name="Gender" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Education:</label>
+                    <input type="text" class="form-control" name="Education" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Marital Status:</label>
+                    <select class="form-control" name="Marital status" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Unmarried">Unmarried</option>
+                        <option value="Married">Married</option>
+                        <option value="Divorced">Divorced</option>
+                    </select>    
+                </div>
+                
+                <div class="form-group">
+                    <label>Mode of Interview:</label>
+                    <select class="form-control" name="Mode of Interview" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Mobile">Mobile</option>
+                        <option value="Laptop">Laptop</option>
+                    </select>
+                </div>
 
-            <label>Age:</label>
-            <input type="number" name="Age" required>
+                <div class="form-group">
+                    <label>Fluency in English based on introduction:</label>
+                    <input type="text" class="form-control" name="Fluency in English based on introduction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Does the candidate has mother tongue influence while speaking english:</label>
+                    <select class="form-control" name="Does the candidate has mother tongue influence while speaking english." required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Acquaintance and Referral:</label>
+                    <select class="form-control" name="Acquaintance and Referral" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Candidate Status:</label>
+                    <select class="form-control" name="Candidate Status" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Experienced in non client facing(equal to or more than 6 months)">Experienced in non client facing(equal to or more than 6 months)</option>
+                        <option value="Lateral(2021 and before with (less than 6 months) experience)">Lateral(2021 and before with (less than 6 months) experience)</option>
+                        <option value="Fresher(only 2022 grad)">Fresher(only 2022 grad)</option>     
+                        <option value="Experienced in client facing(equal to or more than 6 months)">Experienced in client facing(equal to or more than 6 months)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Fixed CTC (lakhs):</label>
+                    <select class="form-control" name="Last Fixed CTC (lakhs) " required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="0-1.99">0-1.99</option>
+                        <option value="2-2.99">2-2.99</option>
+                        <option value="3-3.99">3-3.99</option>
+                        <option value="4-4.99">4-4.99</option>
+                        <option value="5-5.99">5-5.99</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Currently Employed:</label>
+                    <select class="form-control" name="Currently Employed" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Experienced candidate - (Experience in months):</label>
+                    <select class="form-control" name="Experienced candidate - (Experience in months)" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="6-11.99 Months">6-11.99 Months</option>
+                        <option value="Fresher(<6 months)">Fresher(<6 months)</option>
+                        <option value="12-17.99 Months">12-17.99 Months</option>
+                        <option value="48+ Months">48+ Months</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What was the type of Role?:</label>
+                    <select class="form-control" name="What was the type of Role?" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="Individual Contributor">Individual Contributor</option>
+                        <option value="Team Handling">Team Handling</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>How many slides candidate have submitted in PPT?:</label>
+                    <select class="form-control" name="How many slides candidate have submitted in PPT?" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1 slide">1 slide</option>
+                        <option value="5 - 6 slides">5 - 6 slides</option>
+                        <option value="More than 6 slides">More than 6 slides</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Role acceptance:</label>
+                    <select class="form-control" name="Role acceptance" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="No">No</option>
+                        <option value="Yes : Think and says yes.(Shows some hesitation)">Yes : Think and says yes.(Shows some hesitation)</option>
+                        <option value="Emphatic Yes">Emphatic Yes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Candidate is willing to relocate:</label>
+                    <select class="form-control" name="Candidate is willing to relocate" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="No - Want Specific Centre Location Only">No - Want Specific Centre Location Only</option>
+                        <option value="Yes - Anywhere in PAN India">Yes - Anywhere in PAN India</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Confidence based on Introduction (English):</label>
+                    <input type="number" class="form-control" name="Confidence based on Introduction (English)" id="confidence1" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confidence based on the topic given:</label>
+                    <input type="number" class="form-control" name="Confidence based on the topic given " id="confidence2" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confidence Based on the PPT Question:</label>
+                    <input type="number" class="form-control" name="Confidence Based on the PPT Question" id="confidence3" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confidence based on the sales scenario:</label>
+                    <input type="number"class="form-control" name="Confidence based on the sales scenario" id="confidence4" min="1" max="5" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Structured Thinking (In regional only):</label>
+                    <input type="number" class="form-control" name="Structured Thinking (In regional only)" id="structured1" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Structured Thinking Based on the PPT Question:</label>
+                    <input type="number" class="form-control" name="Structured Thinking Based on the PPT Question" id="structured2" min="1" max="5" required>
+                </div>    
+
+                <div class="form-group">
+                    <label>Structured Thinking( Call pitch):</label>
+                    <input type="number" class="form-control" name="Structured Thinking( Call pitch)" id="structured3" min="1" max="5" required>
+                </div>    
+
+                <div class="form-group">
+                    <label>Regional fluency based on the topic given:</label>
+                    <input type="number" class="form-control" name="Regional fluency based on the topic given " id="regional1" min="1" max="5" required>
+                </div>    
+
+                <div class="form-group">
+                    <label>Regional fluency Based on the PPT Question:</label>
+                    <input type="number" class="form-control" name="Regional fluency Based on the PPT Question" id="regional2" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Regional fluency based on the sales scenario:</label>
+                    <input type="number" class="form-control" name="Regional fluency based on the  sales scenario" id="regional3" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confidence Score:</label>
+                    <input type="number" class="form-control" name="Confidence Score" id="confidence5" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Structured Thinking Score:</label>
+                    <input type="number" class="form-control" name="Structured Thinking Score" id="structured4" min="1" max="5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Regional Fluency Score:</label>
+                    <input type="number" class="form-control" name="Regional Fluency Score" id="regional4" min="1" max="5" required>
+                </div>
+
+                <!-- <label>Total Score:</label>
+                <input type="number" name="Total Score" min="1" max="100" required> -->
+
+                <div class="form-group">
+                    <label>Total Score:</label>
+                    <input type="number" class="form-control" name="Total Score" id="totalScore" readonly>
+                </div>
+            </div>    
             
-            <label>Gender:</label>
-            <select name="Gender" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-            
-            <label>Education:</label>
-            <input type="text" name="Education" required>
-            
-            <label>Marital Status:</label>
-            <select name="Marital status" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Unmarried">Unmarried</option>
-                <option value="Married">Married</option>
-                <option value="Divorced">Divorced</option>
-            </select>    
-            
-            <label>Mode of Interview:</label>
-            <select name="Mode of Interview" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Mobile">Mobile</option>
-                <option value="Laptop">Laptop</option>
-            </select>
-        
-            <label>Fluency in English based on introduction:</label>
-            <input type="text" name="Fluency in English based on introduction" required>
-            
-            <label>Does the candidate has mother tongue influence while speaking english:</label>
-            <select name="Does the candidate has mother tongue influence while speaking english." required>
-                <option value="" disabled selected>Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-
-            <label>Acquaintance and Referral:</label>
-            <select name="Acquaintance and Referral" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            
-            <label>Candidate Status:</label>
-            <select name="Candidate Status" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Experienced in non client facing(equal to or more than 6 months)">Experienced in non client facing(equal to or more than 6 months)</option>
-                <option value="Lateral(2021 and before with (less than 6 months) experience)">Lateral(2021 and before with (less than 6 months) experience)</option>
-                <option value="Fresher(only 2022 grad)">Fresher(only 2022 grad)</option>     
-                <option value="Experienced in client facing(equal to or more than 6 months)">Experienced in client facing(equal to or more than 6 months)</option>
-            </select>
-
-            <label>Last Fixed CTC (lakhs):</label>
-            <select name="Last Fixed CTC (lakhs) " required>
-                <option value="" disabled selected>Select</option>
-                <option value="Fresher">Fresher</option>
-                <option value="0-1.99">0-1.99</option>
-                <option value="2-2.99">2-2.99</option>
-                <option value="3-3.99">3-3.99</option>
-                <option value="4-4.99">4-4.99</option>
-                <option value="5-5.99">5-5.99</option>
-            </select>
-            
-            <label>Currently Employed:</label>
-            <select name="Currently Employed" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-
-            <label>Experienced candidate - (Experience in months):</label>
-            <select name="Experienced candidate - (Experience in months)" required>
-                <option value="" disabled selected>Select</option>
-                <option value="6-11.99 Months">6-11.99 Months</option>
-                <option value="Fresher(<6 months)">Fresher(<6 months)</option>
-                <option value="12-17.99 Months">12-17.99 Months</option>
-                <option value="48+ Months">48+ Months</option>
-            </select>
-
-            <label>What was the type of Role?:</label>
-            <select name="What was the type of Role?" required>
-                <option value="" disabled selected>Select</option>
-                <option value="Fresher">Fresher</option>
-                <option value="Individual Contributor">Individual Contributor</option>
-                <option value="Team Handling">Team Handling</option>
-            </select>
-
-            <label>How many slides candidate have submitted in PPT?:</label>
-            <select name="How many slides candidate have submitted in PPT?" required>
-                <option value="" disabled selected>Select</option>
-                <option value="1 slide">1 slide</option>
-                <option value="5 - 6 slides">5 - 6 slides</option>
-                <option value="More than 6 slides">More than 6 slides</option>
-            </select>
-
-            <label>Role acceptance:</label>
-            <select name="Role acceptance" required>
-                <option value="" disabled selected>Select</option>
-                <option value="No">No</option>
-                <option value="Yes : Think and says yes.(Shows some hesitation)">Yes : Think and says yes.(Shows some hesitation)</option>
-                <option value="Emphatic Yes">Emphatic Yes</option>
-            </select>
-
-            <label>Candidate is willing to relocate:</label>
-            <select name="Candidate is willing to relocate" required>
-                <option value="" disabled selected>Select</option>
-                <option value="No - Want Specific Centre Location Only">No - Want Specific Centre Location Only</option>
-                <option value="Yes - Anywhere in PAN India">Yes - Anywhere in PAN India</option>
-            </select>
-            
-            <label>Confidence based on Introduction (English):</label>
-            <input type="number" name="Confidence based on Introduction (English)" id="confidence1" min="1" max="5" required>
-
-            <label>Confidence based on the topic given:</label>
-            <input type="number" name="Confidence based on the topic given " id="confidence2" min="1" max="5" required>
-
-            <label>Confidence Based on the PPT Question:</label>
-            <input type="number" name="Confidence Based on the PPT Question" id="confidence3" min="1" max="5" required>
-
-            <label>Confidence based on the sales scenario:</label>
-            <input type="number" name="Confidence based on the sales scenario" id="confidence4" min="1" max="5" required>
-            
-            <label>Structured Thinking (In regional only):</label>
-            <input type="number" name="Structured Thinking (In regional only)" id="structured1" min="1" max="5" required>
-
-            <label>Structured Thinking Based on the PPT Question:</label>
-            <input type="number" name="Structured Thinking Based on the PPT Question" id="structured2" min="1" max="5" required>
-
-            <label>Structured Thinking( Call pitch):</label>
-            <input type="number" name="Structured Thinking( Call pitch)" id="structured3" min="1" max="5" required>
-            
-            <label>Regional fluency based on the topic given:</label>
-            <input type="number" name="Regional fluency based on the topic given " id="regional1" min="1" max="5" required>
-
-            <label>Regional fluency Based on the PPT Question:</label>
-            <input type="number" name="Regional fluency Based on the PPT Question" id="regional2" min="1" max="5" required>
-
-            <label>Regional fluency based on the sales scenario:</label>
-            <input type="number" name="Regional fluency based on the  sales scenario" id="regional3" min="1" max="5" required>
-
-            <label>Confidence Score:</label>
-            <input type="number" name="Confidence Score" id="confidence5" min="1" max="5" required>
-
-            <label>Structured Thinking Score:</label>
-            <input type="number" name="Structured Thinking Score" id="structured4" min="1" max="5" required>
-
-            <label>Regional Fluency Score:</label>
-            <input type="number" name="Regional Fluency Score" id="regional4" min="1" max="5" required>
-
-            <!-- <label>Total Score:</label>
-            <input type="number" name="Total Score" min="1" max="100" required> -->
-
-            <label>Total Score:</label>
-            <input type="number" name="Total Score" id="totalScore" readonly>
-            
-            <button type="submit">Submit</button>
+            <div style="display: flex; justify-content: center;">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
+
         <div id="result"></div>
     </div>
     
