@@ -161,7 +161,7 @@ def predict():
 
         # Apply preprocessing
         processed_input = pipeline.transform(input_df)
-
+          
         # Convert to PyTorch tensor
         inputs = torch.tensor(processed_input, dtype=torch.float32)
 
