@@ -10,8 +10,8 @@ COPY requirements.txt .
 # Install system dependencies (optional but helps with missing packages)
 RUN apt-get update && apt-get install -y git
 
-# # Upgrade pip to avoid warnings
-# RUN pip install --upgrade pip
+# Upgrade pip to avoid warnings
+RUN pip install --upgrade pip
 
 # Install dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
